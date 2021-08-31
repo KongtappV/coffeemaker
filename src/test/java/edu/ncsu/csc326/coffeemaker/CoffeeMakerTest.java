@@ -139,6 +139,40 @@ public class CoffeeMakerTest {
 
 	/**
 	 * Given a coffee maker with one valid recipe
+	 * When we make coffee, selecting the valid recipe and paying more than
+	 * 		the coffee costs
+	 * Then we check if recipe is properly
+	 */
+	@Test
+	public void testDeleteRecipe() {
+		coffeeMaker.addRecipe(recipe1);
+		coffeeMaker.deleteRecipe(0);
+		Recipe empty = new Recipe();
+		assertEquals(empty, coffeeMaker.getRecipes()[0]);
+	}
+
+	/**
+	 * Delete first index of recipe when recipe is empty
+	 */
+	@Test
+	public void testDeleteRecipeEmpty() {
+		coffeeMaker.deleteRecipe(0);
+	}
+
+	/**
+	 * Given a coffee maker with one valid recipe
+	 * When we make coffee, selecting the valid recipe and paying more than
+	 * 		the coffee costs
+	 * Then we check if recipe is properly
+	 */
+	@Test (expected = ArrayIndexOutOfBoundsException.class)
+	public void testDeleteRecipeOutOfBound() {
+		coffeeMaker.addRecipe(recipe1);
+		coffeeMaker.deleteRecipe(5);
+	}
+
+	/**
+	 * Given a coffee maker with one valid recipe
 	 * then edit the recipe and check if recipe is edited or not
 	 */
 	@Test
@@ -172,28 +206,15 @@ public class CoffeeMakerTest {
 	}
 
 	/**
-	 * Given a coffee maker with one valid recipe
-	 * When we make coffee, selecting the valid recipe and paying more than
-	 * 		the coffee costs
-	 * Then we check if recipe is properly
-	 */
-	@Test
-	public void testDeleteRecipe() {
-		coffeeMaker.addRecipe(recipe1);
-		coffeeMaker.deleteRecipe(0);
-		Recipe empty = new Recipe();
-		assertEquals(empty, coffeeMaker.getRecipes()[0]);
-	}
-	/**
 	 * Given a coffee maker with the default inventory
 	 * When we add inventory with string
 	 * Then we get an inventory exception
 	 *
-	 * @throws InventoryException  if there was an error parsing the quanity
+	 * @throws InventoryException  if there was an error parsing the quantity
 	 * 		to a positive integer.
 	 */
 	@Test(expected = InventoryException.class)
-	public void testAddInventoryStringException() throws InventoryException {
+	public void testAddInventoryString() throws InventoryException {
 		coffeeMaker.addInventory("4", "0", "asdf", "3");
 	}
 
@@ -308,8 +329,7 @@ public class CoffeeMakerTest {
 	 */
 	@Test
 	public void testCheckInventory() throws InventoryException {
-		coffeeMaker.addInventory("1", "1", "1", "1");
-		assertEquals("Coffee: 16\nMilk: 16\nSugar: 16\nChocolate: 16\n", coffeeMaker.checkInventory());
+		assertEquals("Coffee: 15\nMilk: 15\nSugar: 15\nChocolate: 15\n", coffeeMaker.checkInventory());
 	}
 
 	/**
