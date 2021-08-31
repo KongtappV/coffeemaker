@@ -184,8 +184,6 @@ public class CoffeeMakerTest {
 		Recipe empty = new Recipe();
 		assertEquals(empty, coffeeMaker.getRecipes()[0]);
 	}
-
-
 	/**
 	 * Given a coffee maker with the default inventory
 	 * When we add inventory with string
@@ -198,8 +196,6 @@ public class CoffeeMakerTest {
 	public void testAddInventoryStringException() throws InventoryException {
 		coffeeMaker.addInventory("4", "0", "asdf", "3");
 	}
-
-	// Test Coffee Maker's Inventory
 
 	/**
 	 * Given the positive amount of chocolate and added to chocolate's supply in the inventory
@@ -354,13 +350,14 @@ public class CoffeeMakerTest {
 
 	/**
 	 * Given a coffee maker with one valid recipe
-	 * When we make coffee, selecting the valid recipe but No money to pay
-	 * Then return the amount you pay
+	 * When we make coffee, selecting the valid recipe but Negative amount of money
+	 *
+	 * Then throws Exception money can't be negative
 	 */
-	@Test
-	public void testMakeCoffeeNoMoney() {
+	@Test (expected = Exception.class)
+	public void testMakeCoffeeNegativeMoney() {
 		coffeeMaker.addRecipe(recipe1);
-		assertEquals(0, coffeeMaker.makeCoffee(0, 0));
+		coffeeMaker.makeCoffee(0, -10);
 	}
 
 	/**
