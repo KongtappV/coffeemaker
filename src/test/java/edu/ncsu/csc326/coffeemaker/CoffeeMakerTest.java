@@ -56,51 +56,29 @@ public class CoffeeMakerTest {
         coffeeMaker = new CoffeeMaker();
 
         //Set up for r1
-        recipe1 = new Recipe();
-        recipe1.setName("Coffee");
-        recipe1.setAmtChocolate("0");
-        recipe1.setAmtCoffee("3");
-        recipe1.setAmtMilk("1");
-        recipe1.setAmtSugar("1");
-        recipe1.setPrice("50");
-
+        recipe1 = createRecipe("Coffee", "0","3","1","1","50");
         //Set up for r2
-        recipe2 = new Recipe();
-        recipe2.setName("Mocha");
-        recipe2.setAmtChocolate("20");
-        recipe2.setAmtCoffee("3");
-        recipe2.setAmtMilk("1");
-        recipe2.setAmtSugar("1");
-        recipe2.setPrice("75");
-
+        recipe2 = createRecipe("Mocha", "20","3","1","1","75");
         //Set up for r3
-        recipe3 = new Recipe();
-        recipe3.setName("Latte");
-        recipe3.setAmtChocolate("0");
-        recipe3.setAmtCoffee("3");
-        recipe3.setAmtMilk("3");
-        recipe3.setAmtSugar("1");
-        recipe3.setPrice("100");
-
+        recipe3 = createRecipe("Latte", "0","3","3","1","100");
         //Set up for r4
-        recipe4 = new Recipe();
-        recipe4.setName("Hot Chocolate");
-        recipe4.setAmtChocolate("4");
-        recipe4.setAmtCoffee("0");
-        recipe4.setAmtMilk("1");
-        recipe4.setAmtSugar("1");
-        recipe4.setPrice("65");
-
+        recipe4 = createRecipe("Hot Chocolate", "4","0","1","1","65");
         //Set up for r5
-        recipe5 = new Recipe();
-        recipe5.setName("Ultimate Coffee");
-        recipe5.setAmtChocolate("100");
-        recipe5.setAmtCoffee("100");
-        recipe5.setAmtMilk("100");
-        recipe5.setAmtSugar("100");
-        recipe5.setPrice("50");
+        recipe5 = createRecipe("Ultimate Coffee", "100","100","100","100","50");
+
     }
 
+    private static Recipe createRecipe(String name, String amtChocolate, String amtCoffee, String amtMilk, String amtSugar, String price) throws RecipeException {
+        Recipe recipe = new Recipe();
+        recipe.setName(name);
+        recipe.setAmtChocolate(amtChocolate);
+        recipe.setAmtCoffee(amtCoffee);
+        recipe.setAmtMilk(amtMilk);
+        recipe.setAmtSugar(amtSugar);
+        recipe.setPrice(price);
+
+        return recipe;
+    }
 
     /**
      * Given a coffee maker with one valid recipe
