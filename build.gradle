@@ -35,7 +35,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
 	// Deprecated.  Use testImplementation.
-//    testCompile 'junit:junit:4.12'
+//    testCompile 'junit:junit:4.
+
+    // Use Mockito framework
+    testImplementation "org.mockito:mockito-core:3.+"
 }
 
 jacoco {

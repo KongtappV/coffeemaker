@@ -20,9 +20,9 @@ import edu.ncsu.csc326.coffeemaker.exceptions.InventoryException;
  */
 public class CoffeeMaker {
 	/** Array of recipes in coffee maker */
-	private static RecipeBook recipeBook;
+	private RecipeBook recipeBook;
 	/** Inventory of the coffee maker */
-    private static Inventory inventory;
+    private Inventory inventory;
 	
     /**
      * Constructor for the coffee maker
@@ -31,6 +31,18 @@ public class CoffeeMaker {
 	public CoffeeMaker() {
 	    recipeBook = new RecipeBook();
 		inventory = new Inventory();
+	}
+
+	/**
+	 * Constructor for coffee maker
+	 *
+	 * @param recipeBook recipe book of the coffee maker machine
+	 * @param inventory  inventory of the coffee maker machine
+	 */
+	public CoffeeMaker(RecipeBook recipeBook, Inventory inventory) {
+		this.recipeBook = recipeBook;
+		this.inventory = inventory;
+
 	}
 	
 	/**
@@ -119,6 +131,6 @@ public class CoffeeMaker {
 	 * @return Recipe []
 	 */
 	public synchronized Recipe[] getRecipes() {
-		return recipeBook.getRecipes();
+			return recipeBook.getRecipes();
 	}
 }

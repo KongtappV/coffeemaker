@@ -32,11 +32,11 @@ public class RecipeBook {
 	 * @param r
 	 * @return Recipe[]
 	 */
-	public synchronized Recipe[] getRecipes() {
+	public Recipe[] getRecipes() {
 		return recipeArray;
 	}
 	
-	public synchronized boolean addRecipe(Recipe r) {
+	public boolean addRecipe(Recipe r) {
 		//Assume recipe doesn't exist in the array until 
 		//find out otherwise
 		boolean exists = false;
@@ -67,7 +67,7 @@ public class RecipeBook {
 	 * @param recipeToDelete
 	 * @return String
 	 */
-	public synchronized String deleteRecipe(int recipeToDelete) {
+	public String deleteRecipe(int recipeToDelete) {
 		if (recipeArray[recipeToDelete] != null) {
 			String recipeName = recipeArray[recipeToDelete].getName();
 			recipeArray[recipeToDelete] = new Recipe();
@@ -84,7 +84,7 @@ public class RecipeBook {
 	 * @param newRecipe
 	 * @return String
 	 */
-	public synchronized String editRecipe(int recipeToEdit, Recipe newRecipe) {
+	public String editRecipe(int recipeToEdit, Recipe newRecipe) {
 		if (recipeArray[recipeToEdit] != null) {
 			String recipeName = recipeArray[recipeToEdit].getName();
 			newRecipe.setName("");

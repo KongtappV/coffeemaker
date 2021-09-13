@@ -24,6 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Unit tests for CoffeeMaker class.
@@ -36,6 +37,8 @@ public class CoffeeMakerTest {
      * The object under test.
      */
     private CoffeeMaker coffeeMaker;
+    private CoffeeMaker mockCoffeeMaker;
+    private RecipeBook mockRecipeBook;
 
     // Sample recipes to use in testing.
     private Recipe recipe1;
@@ -54,6 +57,10 @@ public class CoffeeMakerTest {
     @Before
     public void setUp() throws RecipeException {
         coffeeMaker = new CoffeeMaker();
+
+        //Set mock object
+        mockRecipeBook = mock(RecipeBook.class);
+        mockCoffeeMaker = new CoffeeMaker(mockRecipeBook, new Inventory());
 
         //Set up for r1
         recipe1 = createRecipe("Coffee", "0","3","1","1","50");
@@ -323,6 +330,10 @@ public class CoffeeMakerTest {
         assertEquals("Coffee: 12\nMilk: 14\nSugar: 14\nChocolate: 15\n", coffeeMaker.checkInventory());
     }
 
+/**
+ *   HERE
+ */
+
     /**
      * Given a coffee maker with one valid recipe
      * When we make coffee, selecting the valid recipe and paying more than
@@ -331,8 +342,15 @@ public class CoffeeMakerTest {
      */
     @Test
     public void testMakeCoffee() {
-        coffeeMaker.addRecipe(recipe1);
-        assertEquals(25, coffeeMaker.makeCoffee(0, 75));
+        // stub data
+        Recipe[] recipesArray = {recipe1, recipe2, recipe3};
+        mockCoffeeMaker.addRecipe(recipe1);
+        // add the behavior necessary for this test
+        when(mockRecipeBook.getRecipes())
+                .thenReturn(recipesArray);
+        // verify
+        assertEquals(25, mockCoffeeMaker.makeCoffee(0, 75));
+        verify(mockRecipeBook, times(4)).getRecipes();
     }
 
     /**
@@ -342,9 +360,16 @@ public class CoffeeMakerTest {
      * Then you got the same amount of money back
      */
     @Test
-    public void testMakeCoffeeNotEnoughMoney() {
-        coffeeMaker.addRecipe(recipe1);
-        assertEquals(25, coffeeMaker.makeCoffee(0, 25));
+    public void testMakeCoffeeNotEnoughMoney() throws RecipeException {
+        // stub data
+        Recipe[] recipesArray = {recipe1, recipe2, recipe3};
+        mockCoffeeMaker.addRecipe(recipe1);
+        // add the behavior necessary for this test
+        when(mockRecipeBook.getRecipes())
+                .thenReturn(recipesArray);
+        // verify
+        assertEquals(25, mockCoffeeMaker.makeCoffee(0, 25));
+        verify(mockRecipeBook, times(4)).getRecipes();
     }
 
     /**
@@ -354,9 +379,16 @@ public class CoffeeMakerTest {
      * Then throws Exception money can't be negative
      */
     @Test(expected = RecipeException.class)
-    public void testMakeCoffeeNegativeMoney() {
-        coffeeMaker.addRecipe(recipe1);
-        coffeeMaker.makeCoffee(0, -10);
+    public void testMakeCoffeeNegativeMoney() throws RecipeException {
+        // stub data
+        Recipe[] recipesArray = {recipe1, recipe2, recipe3};
+        mockCoffeeMaker.addRecipe(recipe1);
+        // add the behavior necessary for this test
+        when(mockRecipeBook.getRecipes())
+                .thenReturn(recipesArray);
+        // verify
+        mockCoffeeMaker.makeCoffee(0, -10);
+        verify(mockRecipeBook, times(2)).getRecipes();
     }
 
     /**
@@ -366,9 +398,16 @@ public class CoffeeMakerTest {
      * @throws ArrayIndexOutOfBoundsException
      */
     @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void testMakeCoffeeOutOfBound() {
-        coffeeMaker.addRecipe(recipe1);
-        coffeeMaker.makeCoffee(100, 25);
+    public void testMakeCoffeeOutOfBound() throws ArrayIndexOutOfBoundsException {
+        // stub data
+        Recipe[] recipesArray = {recipe1, recipe2, recipe3};
+        mockCoffeeMaker.addRecipe(recipe1);
+        // add the behavior necessary for this test
+        when(mockRecipeBook.getRecipes())
+                .thenReturn(recipesArray);
+        // verify
+        mockCoffeeMaker.makeCoffee(100, 25);
+        verify(mockRecipeBook, times(2)).getRecipes();
     }
 
     /** Add recipe5 which used large amount of ingredient
@@ -377,8 +416,15 @@ public class CoffeeMakerTest {
      */
     @Test
     public void testMakeCoffeeNoIngredient() {
-        coffeeMaker.addRecipe(recipe5);
-        assertEquals(50 ,coffeeMaker.makeCoffee(0, 50));
+        // stub data
+        Recipe[] recipesArray = {recipe5, recipe2, recipe3};
+        mockCoffeeMaker.addRecipe(recipe5);
+        // add the behavior necessary for this test
+        when(mockRecipeBook.getRecipes())
+                .thenReturn(recipesArray);
+        // verify
+        mockCoffeeMaker.makeCoffee(0, 50);
+        verify(mockRecipeBook, times(3)).getRecipes();
     }
 
     /** makeCoffee() with null recipe
@@ -386,7 +432,14 @@ public class CoffeeMakerTest {
      */
     @Test
     public void testMakeCoffeeNullRecipe() {
-        assertEquals(50 ,coffeeMaker.makeCoffee(0, 50));
+        // stub data
+        Recipe[] recipesArray = new Recipe[3];
+        // add the behavior necessary for this test
+        when(mockRecipeBook.getRecipes())
+                .thenReturn(recipesArray);
+        // verify
+        mockCoffeeMaker.makeCoffee(0, 100);
+        verify(mockRecipeBook).getRecipes();
     }
 
     /**
