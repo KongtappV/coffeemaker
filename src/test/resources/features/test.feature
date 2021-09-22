@@ -31,4 +31,15 @@ Feature: Coffee Maker
     And make a cup of coffee
     Then use correct amount of ingredient
 
+  Scenario: try to make a coffee with no recipe
+    Given I buy new coffee maker
+    And I pay 50
+    Then make coffee with no recipe
 
+  Scenario: pay for coffee less to the cost of the coffee
+    Given I buy new coffee maker
+    When I add new recipe
+    And I pay 25
+    And make a cup of coffee
+    Then the change is 25
+    

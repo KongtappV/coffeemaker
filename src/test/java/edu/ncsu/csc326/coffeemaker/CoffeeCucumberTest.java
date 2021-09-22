@@ -8,6 +8,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 
 public class CoffeeCucumberTest {
@@ -80,5 +81,10 @@ public class CoffeeCucumberTest {
     @Then("use correct amount of ingredient")
     public void useCorrectAmountOfIngredient() {
         assertEquals("Coffee: 15\nMilk: 12\nSugar: 14\nChocolate: 14\n", coffeeMaker.checkInventory());
+    }
+
+    @Then("make coffee with no recipe")
+    public void makeCoffeeWithNoRecipe() {
+        coffeeMaker.makeCoffee(0, money);
     }
 }
