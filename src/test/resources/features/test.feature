@@ -29,6 +29,6 @@ Feature: Coffee Maker
     When I add new recipe
     And I pay 50
     And make a cup of coffee
-    Then the change is
+    Then use correct amount of ingredient
 
 

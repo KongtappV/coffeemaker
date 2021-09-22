@@ -76,4 +76,9 @@ public class CoffeeCucumberTest {
     public void theChangeIs(int arg0) {
         assertEquals(arg0, amount);
     }
+
+    @Then("use correct amount of ingredient")
+    public void useCorrectAmountOfIngredient() {
+        assertEquals("Coffee: 15\nMilk: 12\nSugar: 14\nChocolate: 14\n", coffeeMaker.checkInventory());
+    }
 }
